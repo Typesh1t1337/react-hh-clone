@@ -1,6 +1,7 @@
-import {Link, useNavigate} from "react-router-dom";
+import {createCookie, Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from "axios";
+import api from "../axiosInstance.js";
 
 axios.defaults.withCredentials = true;
 
@@ -15,16 +16,12 @@ export function LoginUserApp() {
             e.preventDefault();
 
             try {
-                const response = await axios.post("http://0.0.0.0:8001/account/login/", {
+                const response = await api.post("account/login/", {
                     username,
                     password,
-                },{
-                    withCredentials: true
                 })
                 if (response.status === 200) {
                     setStatus(response.data.status);
-                    sessionStorage.setItem("username", username);
-                    sessionStorage.setItem("status", response.data.status);
                     navigate("/");
                 }else{
                     setError("Invalid username or password");

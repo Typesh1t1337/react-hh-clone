@@ -23,8 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-.node_modules
+node_modules
 .vite
 eslint.config.js
 vite.config.js
 
+.ENV

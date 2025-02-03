@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import api from "../axiosInstance.js";
 
 
 export function JobCard({title,description,location,salary_min,salary_max,category}) {
@@ -8,7 +9,7 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
     useEffect(() => {
         const getJobs = async () => {
             try{
-                const response = await axios.get(`http://0.0.0.0:8001/api/v1/job/list/?title=${title}&description=${description}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}`);
+                const response = await api.get(`api/v1/job/list/?title=${title}&description=${description}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}`);
                 setJobList(response.data.results);
             }
             catch(err){
@@ -41,7 +42,7 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
                         </div>
                     </div>
                     <div className="w-full h-[130px] flex justify-start items-center">
-                        <button className="bg-[#1B70F1] w-[170px] h-[60px] rounded-[4px]">Apply</button>
+                        <button className="bg-[#1B70F1] w-[170px] h-[60px] rounded-[4px]">Find out more</button>
                     </div>
                 </div>
             ))}
