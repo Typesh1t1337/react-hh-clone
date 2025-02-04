@@ -14,21 +14,27 @@ export function LoginUserApp() {
 
         const handleLogin = async (e) => {
             e.preventDefault();
-
-            try {
-                const response = await api.post("account/login/", {
-                    username,
-                    password,
-                })
-                if (response.status === 200) {
-                    setStatus(response.data.status);
-                    navigate("/");
-                }else{
-                    setError("Invalid username or password");
+            if(!username){
+                setError("Username is required");
+            }
+            if(!password){
+                setError("Password is required");
+            }else{
+                try {
+                    const response = await api.post("account/login/", {
+                        username,
+                        password,
+                    })
+                    if (response.status === 200) {
+                        setStatus(response.data.status);
+                        navigate("/");
+                    }else{
+                        setError("Invalid username or password");
+                    }
+                }catch (error) {
+                    console.log(error.message);
+                    setError("Something went wrong!");
                 }
-            }catch (error) {
-                console.log(error);
-                setError("Something went wrong!");
             }
         }
 

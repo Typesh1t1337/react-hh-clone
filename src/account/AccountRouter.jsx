@@ -4,7 +4,7 @@ import {LoginUserApp} from "./LoginUserApp.jsx";
 import {RegisterApp} from "./RegisterApp.jsx";
 import {RegisterCompanyApp} from "./RegisterCompanyApp.jsx";
 import {MyProfileApp} from "./profile/MyProfileApp.jsx";
-import {VerifyAccount} from "./VerifyAccount.jsx";
+import {VerifyAccount} from "./verification/VerifyAccount.jsx";
 import {AuthProvider} from "../AuthContext.jsx";
 
 
