@@ -5,10 +5,16 @@ import logo from "/portfolio.png";
 import api from "./axiosInstance.js";
 import pfp from "/img_1.png"
 import {useAuth} from "./AuthContext.jsx";
+import {LoadingSpinner} from "./LoadingSpinner.jsx";
 
 
 export function Header() {
-    const {isAuthenticated,user,isCompany} = useAuth();
+    const {isAuthenticated,user,isCompany,loading} = useAuth();
+
+    if (loading) {
+        return (<LoadingSpinner />);
+    }
+
     return (
             <div className="w-screen h-[120px] fixed flex justify-between bg-[#1E1F25] pl-20 pr-20 z-99">
                 <div className="h-[100%] w-[200px] flex justify-start items-center">
@@ -22,20 +28,20 @@ export function Header() {
                         {isAuthenticated ? (
                                 isCompany ? (
                                         <ul className="w-full flex justify-around items-center text-[#ADB3BF]">
-                                            <li><Link to="/search/vacancy/">Find job</Link></li>
-                                            <li><a href="">Apply list</a></li>
-                                            <li><a href="">Support</a></li>
+                                            <li><Link to="/job/search/vacancy/">Find job</Link></li>
+                                            <li><a href="">Company vacancies</a></li>
+                                            <li><a href="">Chats</a></li>
                                         </ul>
                                     ) : (
                                         <ul className="w-full flex justify-around items-center text-[#ADB3BF]">
-                                            <li><Link to="/search/vacancy/">Find job</Link></li>
-                                            <li><a href="">My applies</a></li>
-                                            <li><a href="">Support</a></li>
+                                            <li><Link to="/job/search/vacancy/">Find job</Link></li>
+                                            <li><Link to="/job/applies/">My applies</Link></li>
+                                            <li><a href="">Chats</a></li>
                                         </ul>
                                     )
                         ) : (
                             <ul className="w-full flex justify-around items-center text-[#ADB3BF]">
-                                <li><Link to="/search/vacancy/">Find job</Link></li>
+                                <li><Link to="job/search/vacancy/">Find job</Link></li>
                                 <li><a href="">Post vacancy</a></li>
                                 <li><a href="">Support</a></li>
                             </ul>
@@ -52,7 +58,7 @@ export function Header() {
                                         </div>
                                     </div>
                                     <div className="h-full w-[60%] flex justify-center items-center">
-                                        <div className="h-[50px] w-full flex flex-col justify-between">
+                                        <div className="h-[50px] w-full flex flex-col justify-between items-end">
                                             <h2 className="text-[16px] font-semibold">{user}</h2>
                                             <Link to="/account/my_profile/" className="text-[12px]">@{user}</Link>
                                         </div>

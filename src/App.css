@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  position: relative;
 
 }
 
@@ -47,5 +48,4 @@
   outline: none;
   border:none;
 }
-
 

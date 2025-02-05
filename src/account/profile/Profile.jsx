@@ -17,7 +17,12 @@ export function Profile() {
                         <h2 className="font-bold">My profile</h2>
                     </div>
                     <div className="h-[75px] w-full flex px-5  items-center justify-start">
+                        {isCompany ? (
+                            <Link className="font-bold text-[#CFD3DA]">Create Vacancy</Link>
+                        ) : (
                         <Link className="font-bold text-[#CFD3DA]">My CV</Link>
+                        )
+                        }
                     </div>
                     <div className="h-[75px] w-full flex px-5  items-center justify-start">
                         <Logout />

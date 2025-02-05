@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import api from "../axiosInstance.js";
+import {Link} from "react-router-dom";
 
 
 export function JobCard({title,description,location,salary_min,salary_max,category}) {
@@ -42,7 +43,7 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
                         </div>
                     </div>
                     <div className="w-full h-[130px] flex justify-start items-center">
-                        <button className="bg-[#1B70F1] w-[170px] h-[60px] rounded-[4px]">Find out more</button>
+                        <Link to={`/job/vacancy/${job.id}`} className="bg-[#1B70F1] px-7 py-4 rounded-[4px]">Find out more</Link>
                     </div>
                 </div>
             ))}
