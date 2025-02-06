@@ -10,7 +10,7 @@ export function VerifyAccount() {
     const {isAuthenticated,user,isCompany,email,isVerified} = useAuth();
     const navigate = useNavigate();
     const hasFetched = useRef(false);
-    const [countDown, setCountDown] = useState(0);
+    const [countDown, setCountDown] = useState(60);
 
     useEffect(() => {
         if(countDown > 0){
@@ -24,7 +24,7 @@ export function VerifyAccount() {
             fetchData();
             hasFetched.current = true;
         }
-    })
+    },[countDown]);
 
     const fetchData = async () => {
         try {
@@ -51,7 +51,7 @@ export function VerifyAccount() {
                         <h2 className="text-[36px] font-[500]">Verify email</h2>
                     </div>
                     <div className="w-full h-[170px]">
-                        <VerifySend countDown={countDown} />
+                        <VerifySend countDown={countDown} setCountDown={setCountDown} />
                     </div>
                 </div>
             </div>

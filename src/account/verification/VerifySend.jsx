@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import api from "../../axiosInstance.js";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -7,18 +7,28 @@ function isNumericNumber(code) {
     return Number.isInteger(num);
 }
 
-export function VerifySend({countDown}) {
+export function VerifySend({countDown, setCountDown}) {
     const [code, setCode] = useState("");
     const [error, setError] = useState("");
     const[success, setSuccess] = useState("");
     const navigate = useNavigate();
+    const [codeSent, setCodeSent] = useState(false);
 
-    const reloadPage = () => {
-        window.location.reload();
+    const sendNewCode = async () => {
+        try {
+            const response = await api.get("account/verify/send_code/");
+            setCountDown(response.data.remain_seconds);
+            setCodeSent(true);
+            setCountDown(60);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
         if(!isNumericNumber(code)) {
             setError("Invalid code");
             return;
@@ -59,17 +69,22 @@ export function VerifySend({countDown}) {
                     onChange={e => setCode(e.target.value)} required/>
             </div>
             <h2 className="text-[#F74E2C] text-[14px] mt-2">{error}</h2>
-            {countDown > 0 ?
+            {codeSent || countDown > 0 ?
                 <div>
                     <h2 className="text-[#06B470] my-1">Code Successfully sent</h2>
-                    <p className="mb-3">0:{countDown} wait to send a new code</p>
+                    {countDown > 9 ? (
+                        <p className="mb-3">0:{countDown} wait to send a new code</p>
+                    ) : (
+                        <p className="mb-3">0:0{countDown} wait to send a new code</p>
+                    )
+                    }
                 </div>
                 :
                 <div>
-                    <a onClick={reloadPage} className="font-bold mb-3">Send new code</a>
+                    <p onClick={sendNewCode} className="font-[400] mb-3 underline cursor-pointer">Send new code</p>
                 </div>
             }
-            <button className="rounded-[4px]" style={{backgroundColor: "#1c70ed"}} type="submit">Send
+            <button className="rounded-[4px] mt-3" style={{backgroundColor: "#1c70ed"}} type="submit">Send
             </button>
         </form>
     )

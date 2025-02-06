@@ -1,7 +1,59 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import api from "../axiosInstance.js";
 
 
 export function RegisterCompanyApp() {
+    const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [error, setError] = useState(null);
+    const [secondPassword, setSecondPassword] = useState(null);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(!username){
+            setError("Username is required");
+            return;
+        }
+        if(!password) {
+            setError("Password is required");
+            return;
+        }if (!email) {
+            setError("Email is required");
+            return;
+        }if(!firstName || !lastName) {
+            setError("full name is required");
+            return;
+        }if(password !== secondPassword) {
+            setError("Passwords do not match");
+            return;
+        }
+
+        try{
+            const response = await api.post("account/register/company/", {
+                username: username,
+                email: email,
+                password: password,
+                first_name: firstName,
+                last_name: lastName,
+            })
+            if (response.status===200) {
+                navigate("/");
+            }
+        }
+        catch(error){
+            console.log(error.message);
+            if(error.response.status === 401){
+                setError(error.response.data.error)
+                setTimeout(() =>setError("") , 2000);
+            }
+        }
+    }
+
     return (
         <>
             <div className="w-screen h-screen bg-[#131517] flex">
@@ -11,7 +63,7 @@ export function RegisterCompanyApp() {
                             <h1 className="text-[36px] font-[500]">Sign Up</h1>
                         </div>
                         <div className="w-[100%] h-[75%]">
-                            <form className="w-full h-full flex flex-col justify-between">
+                            <form className="w-full h-full flex flex-col justify-between" onSubmit={handleSubmit}>
                                 <div className="w-full h-[13%] flex justify-between">
                                     <div className="w-[45%] h-[100%] flex flex-col justify-between items-start">
                                         <label className="text-[16px]" htmlFor="first_name">
@@ -19,15 +71,14 @@ export function RegisterCompanyApp() {
                                         </label>
                                         <input
                                             className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                            placeholder="Type here" id="first_name" type="text" required/>
+                                            placeholder="Type here" id="first_name" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                                     </div>
                                     <div className="w-[45%] h-[100%] flex flex-col justify-between items-start">
                                         <label className="text-[16px]" htmlFor="last_name">
                                             last Name
                                         </label>
                                         <input
-                                            className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                            placeholder="Type here" id="last_name" type="text" required/>
+                                            className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"  placeholder="Type here" id="last_name" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                                     </div>
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
@@ -36,7 +87,7 @@ export function RegisterCompanyApp() {
                                     </label>
                                     <input
                                         className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                        placeholder="Type here" id="last_name" type="text" required/>
+                                        placeholder="Type here" id="last_name" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
                                     <label className="text-[16px]" htmlFor="last_name">
@@ -44,7 +95,7 @@ export function RegisterCompanyApp() {
                                     </label>
                                     <input
                                         className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                        placeholder="Type here" id="last_name" type="email" required/>
+                                        placeholder="Type here" id="last_name" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
                                     <label className="text-[16px]" htmlFor="last_name">
@@ -52,7 +103,7 @@ export function RegisterCompanyApp() {
                                     </label>
                                     <input
                                         className="w-full p-[16px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                        placeholder="Type here" id="last_name" type="text" required/>
+                                        placeholder="Type here" id="last_name" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
                                     <label className="text-[16px]" htmlFor="last_name">
@@ -60,10 +111,12 @@ export function RegisterCompanyApp() {
                                     </label>
                                     <input
                                         className="w-full p-[14px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
-                                        placeholder="Type here" id="last_name" type="text" required/>
+                                        placeholder="Type here" id="last_name" type="password" value={secondPassword} onChange={(e) => setSecondPassword(e.target.value)} required />
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
-                                    <button className="rounded-[4px]" style={{backgroundColor:"#1c70ed"}}>Sign Up</button>
+                                    <h2 className="text-[#F74E2C] text-[14px] my-2">{error}</h2>
+                                    <button className="rounded-[4px]" style={{backgroundColor: "#1c70ed"}} type="submit">Sign Up
+                                    </button>
                                 </div>
                             </form>
                         </div>

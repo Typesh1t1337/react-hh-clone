@@ -5,35 +5,19 @@ import {JobCard} from "./JobCard.jsx";
 import {Professions} from "./atrs/ProfSelector.jsx";
 import api from "../axiosInstance.js";
 import {AuthProvider} from "../AuthContext.jsx";
+import {CitiesSelector} from "./atrs/CitiesSelector.jsx";
 
 
 export function JobApp() {
-    const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [minSalary, setMinSalary] = useState("");
     const [maxSalary, setMaxSalary] = useState("");
     const [category, setCategory] = useState("");
+    const design = 1;
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try{
-                const response = await api.get('api/v1/job/cities/');
-                setCities(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
-    },[]);
-
-    const handleSelection = (event) => {
-        const city = event.target.value;
-        setSelectedCity(city);
-        localStorage.setItem('cities',city);
-    }
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -54,9 +38,11 @@ export function JobApp() {
         setCategory(data);
     }
 
+    const handleDataFromSelectorCity = (data) =>{
+        setSelectedCity(data);
+    }
 
 
-    const cityChosen = localStorage.getItem("cities");
     return (
         <>
             <AuthProvider>
@@ -71,17 +57,11 @@ export function JobApp() {
                                 </div>
                                 <div className="w-full h-[120px] flex flex-col items-start justify-around px-6">
                                     <h2>City</h2>
-                                    <select id="city" name="cities" className="bg-[#272A34] px-1 w-[50%] py-4 text-[14px] rounded-[4px]"
-                                            value={cityChosen} onChange={handleSelection}>
-                                        <option value="" selected disabled>Choose city</option>
-                                        {cities.map((city) => (
-                                            <option key={city.id} value={city.name}>{city.name}</option>
-                                        ))}
-                                    </select>
+                                    <CitiesSelector onSendData={handleDataFromSelectorCity} design={design} />
                                 </div>
                                 <div className="w-full h-[120px] flex flex-col items-start justify-around px-6">
                                     <h2>Profession</h2>
-                                    <Professions onSendData={handleDataFromSelector} />
+                                    <Professions onSendData={handleDataFromSelector} design={design} />
                                 </div>
                                 <div className="w-full h-[150px] flex flex-col items-start justify-around px-6">
                                     <div className="w-full flex items-center justify-start">

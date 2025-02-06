@@ -49,7 +49,7 @@ export function AppliesApp() {
                                 <h2 className="font-bold">Applies</h2>
                             </div>
                             <div
-                                className={`h-[75px] w-full flex px-5 items-center justify-start 
+                                className={`h-[75px] w-full flex px-5 items-center justify-start cursor-pointer
         ${statusToggle === "Applied" ? "bg-[#1B70F1] text-white" : "bg-[#1E1F25] text-[#CFD3DA]"}`}
                                 onClick={switchToApplied}
                             >
@@ -57,7 +57,7 @@ export function AppliesApp() {
                             </div>
 
                             <div
-                                className={`h-[75px] w-full flex px-5 items-center justify-start 
+                                className={`h-[75px] w-full flex px-5 items-center justify-start cursor-pointer
         ${statusToggle === "Rejected" ? "bg-[#1B70F1] text-white" : "bg-[#1E1F25] text-[#CFD3DA]"}`}
                                 onClick={switchToRejected}
                             >
@@ -65,7 +65,7 @@ export function AppliesApp() {
                             </div>
 
                             <div
-                                className={`h-[75px] w-full flex px-5 items-center justify-start 
+                                className={`h-[75px] w-full flex px-5 items-center justify-start cursor-pointer
         ${statusToggle === "Accepted" ? "bg-[#1B70F1] text-white" : "bg-[#1E1F25] text-[#CFD3DA]"}`}
                                 onClick={switchToAccepted}
                             >

@@ -8,7 +8,6 @@ axios.defaults.withCredentials = true;
 export function LoginUserApp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [status, setStatus] = useState("");
     const navigate = useNavigate();
     const [error, setError] = useState("");
 
@@ -33,7 +32,10 @@ export function LoginUserApp() {
                     }
                 }catch (error) {
                     console.log(error.message);
-                    setError("Something went wrong!");
+                    if(error.response.status === 401){
+                        setError(error.response.data.message)
+                        setTimeout(() =>setError("") , 2000);
+                    }
                 }
             }
         }
@@ -64,9 +66,13 @@ export function LoginUserApp() {
                                         className="w-full p-[16px] rounded-[4px] border-[1px] text-[#ADB3BF] border-grey-300"
                                         placeholder="Type here" id="password" type="password" value={password}
                                         onChange={(e) => setPassword(e.target.value)} required/>
-                                    <h2 className="text-[#F74E2C] text-[14px] my-2">{error}</h2>
+                                    {
+                                        error !=="" ? (
+                                            <h2 className="text-[#F74E2C] text-[14px] ">{error}</h2>
+                                        ) : null
+                                    }
                                 </div>
-                                <div className="w-full h-[20%] flex flex-col justify-between">
+                                <div className="w-full h-[20%] flex flex-col justify-between mt-2">
                                     <button className="rounded-[4px]" style={{backgroundColor:"#1c70ed"}} type="submit">Log in</button>
                                 </div>
                             </form>

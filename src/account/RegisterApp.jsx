@@ -10,8 +10,8 @@ export function RegisterApp() {
                         <h2 className="text-[20px]">Sign up</h2>
                     </div>
                     <div className="w-full px-6 h-[190px] flex items-center justify-around flex-col">
-                        <Link to="user" className="bg-[#272A34] w-full py-5 rounded-[4px] text-[17px] flex justify-center items-center">as a User</Link>
-                        <Link to="company" className="bg-[#1B70F1] w-full py-5 rounded-[4px] text-[17px] flex justify-center items-center">as a Company</Link>
+                        <Link to="user/" className="bg-[#272A34] w-full py-5 rounded-[4px] text-[17px] flex justify-center items-center">as a User</Link>
+                        <Link to="company/" className="bg-[#1B70F1] w-full py-5 rounded-[4px] text-[17px] flex justify-center items-center">as a Company</Link>
                     </div>
                 </div>
             </div>
