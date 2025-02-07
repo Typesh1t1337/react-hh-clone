@@ -48,3 +48,9 @@
         transform: rotate(360deg);
     }
 }
+
+.coverprofile{
+    background: url("../public/img_2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}

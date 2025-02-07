@@ -2,7 +2,7 @@ import {Header} from "../../Header.jsx";
 import {AuthProvider, useAuth} from "../../AuthContext.jsx";
 import {Profile} from "./Profile.jsx";
 
-export function MyProfileApp() {
+export function ProfileApp() {
     return (
         <>
             <AuthProvider>
