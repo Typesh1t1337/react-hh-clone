@@ -36,7 +36,7 @@ export function CitiesSelector({onSendData,design}){
                 ))}
             </select>
         ) : design===2 ? (
-            <select id="city" name="cities" className=" px-2 border-grey-300 border-[1px] rounded-[2px]  w-[45%] text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px]"
+            <select id="city" name="cities" className=" px-2 border-grey-300 border-[1px] rounded-[2px]  w-[60%] text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px]"
                     value={chosenCity} onChange={handleSelection}>
                 <option value="" selected disabled>Choose city</option>
                 {cities.map((city) => (

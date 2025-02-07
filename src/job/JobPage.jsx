@@ -98,7 +98,7 @@ export function JobPage() {
                                 ) : (
                                     <JobApplyButton jobId={jobId} applyStatus={applyStatus}
                                                     setApplyStatus={setApplyStatus} setSuccess={setSuccess}
-                                                    success={success}/>
+                                                    success={success} jobCompany={jobInfo.company} />
                                 )
                             )
                         ) : (

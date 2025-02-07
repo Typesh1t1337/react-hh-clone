@@ -46,6 +46,7 @@ export function RegistrationUserApp() {
         catch(error){
                 console.log(error.message);
             if(error.response.status === 401){
+                console.log(error.response.data);
                 setError(error.response.data.error)
                 setTimeout(() =>setError("") , 2000);
             }
@@ -115,8 +116,7 @@ export function RegistrationUserApp() {
                                 </div>
                                 <div className="w-full h-[13%] flex flex-col justify-between">
                                     <h2 className="text-[#F74E2C] text-[14px] my-2">{error}</h2>
-                                    <button className="rounded-[4px]" style={{backgroundColor: "#1c70ed"}}  type="submit">Sign Up
-                                    </button>
+                                    <button className="rounded-[4px]" style={{backgroundColor: "#1c70ed"}}  type="submit">Sign Up</button>
                                 </div>
                             </form>
                         </div>

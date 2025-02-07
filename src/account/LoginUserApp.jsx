@@ -25,7 +25,6 @@ export function LoginUserApp() {
                         password,
                     })
                     if (response.status === 200) {
-                        setStatus(response.data.status);
                         navigate("/");
                     }else{
                         setError("Invalid username or password");

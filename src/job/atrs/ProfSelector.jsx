@@ -34,7 +34,7 @@ export function Professions({onSendData,design}) {
                 ))}
             </select>
             ) : design === 2 ? (
-            <select id="city" name="professions" className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-[45%] text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px]"
+            <select id="city" name="professions" className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-[60%] text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px]"
                     value={chosenCategory} onChange={setData}>
                 <option value="" disabled selected>Choose Profession</option>
                 {categories.map((category, index) => (
