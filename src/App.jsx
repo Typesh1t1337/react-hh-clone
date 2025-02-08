@@ -3,6 +3,7 @@ import {IndexApp} from "./index/IndexApp.jsx";
 import {AccountRouter} from "./account/AccountRouter.jsx";
 import {JobRouter} from "./job/JobRouter.jsx";
 import {ChatRouter} from "./Chat/ChatRouter.jsx";
+import {NotFoundApp} from "./404App.jsx";
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
             <Route  path="/" element={<IndexApp />}  />
             <Route path="/job/*" element={<JobRouter />} />
               <Route path="/chat/*" element={<ChatRouter />} />
+              <Route path="/404/" element={<NotFoundApp />} />
           </Routes>
       </BrowserRouter>
   )
