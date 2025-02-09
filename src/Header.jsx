@@ -11,7 +11,6 @@ import {LoadingSpinner} from "./LoadingSpinner.jsx";
 export function Header() {
     const {isAuthenticated,user,isCompany,loading} = useAuth();
 
-
     if (loading) {
         return (<LoadingSpinner />);
     }

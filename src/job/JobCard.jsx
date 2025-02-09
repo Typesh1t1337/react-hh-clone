@@ -10,7 +10,7 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
     useEffect(() => {
         const getJobs = async () => {
             try{
-                const response = await api.get(`api/v1/job/list/?title=${title}&description=${description}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}`);
+                const response = await api.get(`api/v1/job/list/?search=${title}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}`);
                 setJobList(response.data.results);
             }
             catch(err){

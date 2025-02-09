@@ -1,17 +1,16 @@
-import {Header} from "../Header.jsx";
-import pfp from "/img_1.png"
 import {useEffect, useState} from "react";
-import api from "../axiosInstance.js";
 import {useAuth} from "../AuthContext.jsx";
-import {ChatActive} from "./ChatActive.jsx";
-import {useNavigate} from "react-router-dom";
+import api from "../axiosInstance.js";
+import {Header} from "../Header.jsx";
+import pfp from "/img_1.png";
+import {useParams} from "react-router-dom";
+import {ChatPage} from "./ChatPage.jsx";
 
-export function ChatApp() {
+export function ChatActive() {
     const [allChats, setAllChats] = useState([]);
     const [search, setSearch] = useState("");
     const {isAuthenticated,user,isCompany,loading} = useAuth();
-    const [chatId, setChatId] = useState(null);
-    const navigate = useNavigate();
+    const {chat_id} = useParams();
 
 
     useEffect(() => {
@@ -41,14 +40,18 @@ export function ChatApp() {
                 <div className="w-[80%] h-full flex justify-between rounded-[8px]">
                     <div className="w-[40%] bg-[#1E1F25] h-full overflow-scroll">
                         <div className="w-full h-[15%] bg-[#272A34] pl-6 pr-10 flex items-center relative">
-                            <input className="w-full border-[#ffffff]/20 border-[1px] px-2 h-[35px] text-[#CFD3DA] text-[13px] rounded-[4px]" placeholder="Find contacts" value={search} onChange={e => setSearchValue(e.target.value)} />
+                            <input
+                                className="w-full border-[#ffffff]/20 border-[1px] px-2 h-[35px] text-[#CFD3DA] text-[13px] rounded-[4px]"
+                                placeholder="Find contacts" value={search}
+                                onChange={e => setSearchValue(e.target.value)}/>
                             <button className="absolute left-[315px]">
                                 <i className="bi bi-search"></i>
                             </button>
                         </div>
                         <div className="w-full h-[85%] flex flex-col overflow-scroll">
-                            {allChats.map((chat,index) => (
-                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index} onClick={()=>setConversation(chat.pk)}>
+                            {allChats.map((chat, index) => (
+                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index}
+                                     onClick={() => setConversation(chat.pk)}>
                                     <div className="w-[80px] h-full flex items-center">
                                         <div className="w-[64px] h-[64px] overflow-hidden bg-[#272A34] rounded-[50%]">
                                             <img src={pfp} alt=""/>
@@ -76,11 +79,7 @@ export function ChatApp() {
                             ))}
                         </div>
                     </div>
-                    <div className="w-[60%] h-full flex justify-center items-center">
-                        <h2 className="font-bold text-[30px] text-white">
-                            Chat not chosen yet
-                        </h2>
-                    </div>
+                    <ChatPage chat_id={chat_id} />
                 </div>
             </div>
         </>

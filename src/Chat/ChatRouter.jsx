@@ -1,6 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import {ChatApp} from "./ChatApp.jsx";
 import {AuthProvider} from "../AuthContext.jsx";
+import {ChatActive} from "./ChatActive.jsx";
 
 
 export function ChatRouter() {
@@ -8,7 +9,12 @@ export function ChatRouter() {
         <Routes>
             <Route  path="" element={<AuthProvider>
                 <ChatApp />
-            </AuthProvider>} />
+            </AuthProvider>
+            } />
+            <Route  path="/conversation/:chat_id" element={<AuthProvider>
+                <ChatActive />
+            </AuthProvider>
+            } />
         </Routes>
     )
 }
