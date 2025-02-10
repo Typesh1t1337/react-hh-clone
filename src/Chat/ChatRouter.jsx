@@ -11,7 +11,7 @@ export function ChatRouter() {
                 <ChatApp />
             </AuthProvider>
             } />
-            <Route  path="/conversation/:chat_id" element={<AuthProvider>
+            <Route  path="/conversation/:chat_id/:second_user/" element={<AuthProvider>
                 <ChatActive />
             </AuthProvider>
             } />

@@ -30,8 +30,8 @@ export function ChatApp() {
         setSearch(value);
     }
 
-    const setConversation = (chat_id) => {
-        navigate(`conversation/${chat_id}`);
+    const setConversation = (chat_id,second_user) => {
+        navigate(`conversation/${chat_id}/${second_user}/`);
     }
 
     return (
@@ -48,7 +48,7 @@ export function ChatApp() {
                         </div>
                         <div className="w-full h-[85%] flex flex-col overflow-scroll">
                             {allChats.map((chat,index) => (
-                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index} onClick={()=>setConversation(chat.pk)}>
+                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index} onClick={() => setConversation(chat.pk, chat.first_username !== user  ?   chat.first_username : chat.second_username )}>
                                     <div className="w-[80px] h-full flex items-center">
                                         <div className="w-[64px] h-[64px] overflow-hidden bg-[#272A34] rounded-[50%]">
                                             <img src={pfp} alt=""/>

@@ -54,3 +54,38 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    50% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #fff;
+    }
+    100% {
+        border-color: transparent;
+    }
+}
+
+.typing-text {
+    font-family: 'Courier', monospace;
+    font-size: 14px;
+    color: #a8a8a8;
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    animation: typing 2s steps(20) infinite, blink 0.75s step-end infinite;
+}
+

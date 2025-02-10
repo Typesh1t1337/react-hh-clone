@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [email, setEmail] = useState("");
     const [isVerified, setIsVerified] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [firstName, setFirstName] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }) => {
                     setUser(response.data.user.username);
                     setEmail(response.data.user.email);
                     setIsVerified(response.data.user.isVerified);
+                    setFirstName(response.data.user.first_name);
                     if (response.data.user.status==="Company"){
                         setIsCompany(true);
                     }
@@ -35,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     },[]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, isCompany, setIsCompany,email,setEmail,isVerified, setIsVerified,loading,setLoading }}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, isCompany, setIsCompany,email,setEmail,isVerified, setIsVerified,loading,setLoading,firstName,setFirstName }}>
             {children}
         </AuthContext.Provider>
     )

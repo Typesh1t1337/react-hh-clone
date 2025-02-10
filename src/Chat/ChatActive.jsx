@@ -3,15 +3,15 @@ import {useAuth} from "../AuthContext.jsx";
 import api from "../axiosInstance.js";
 import {Header} from "../Header.jsx";
 import pfp from "/img_1.png";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {ChatPage} from "./ChatPage.jsx";
 
 export function ChatActive() {
     const [allChats, setAllChats] = useState([]);
     const [search, setSearch] = useState("");
     const {isAuthenticated,user,isCompany,loading} = useAuth();
-    const {chat_id} = useParams();
-
+    const chat = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAllChats = async () => {
@@ -29,9 +29,10 @@ export function ChatActive() {
         setSearch(value);
     }
 
-    const setConversation = (chat_id) => {
-        navigate(`conversation/${chat_id}`);
+    const setConversation = (chat_id, second_user) => {
+        navigate(`/chat/conversation/${chat_id}/${second_user}/`);
     }
+
 
     return (
         <>
@@ -50,8 +51,7 @@ export function ChatActive() {
                         </div>
                         <div className="w-full h-[85%] flex flex-col overflow-scroll">
                             {allChats.map((chat, index) => (
-                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index}
-                                     onClick={() => setConversation(chat.pk)}>
+                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index} onClick={() => setConversation(chat.pk,chat.first_username !== user  ?   chat.first_username : chat.second_name )}>
                                     <div className="w-[80px] h-full flex items-center">
                                         <div className="w-[64px] h-[64px] overflow-hidden bg-[#272A34] rounded-[50%]">
                                             <img src={pfp} alt=""/>
@@ -79,7 +79,7 @@ export function ChatActive() {
                             ))}
                         </div>
                     </div>
-                    <ChatPage chat_id={chat_id} />
+                    <ChatPage chat_id={chat.chat_id} second_user={chat.second_user}  />
                 </div>
             </div>
         </>
