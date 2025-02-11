@@ -6,6 +6,12 @@ import {useAuth} from "../AuthContext.jsx";
 import {ChatActive} from "./ChatActive.jsx";
 import {useNavigate} from "react-router-dom";
 
+function CheckCode(message) {
+    if(message.includes("Assigned Code:Bober")){
+        return "Assigned"
+    }
+}
+
 export function ChatApp() {
     const [allChats, setAllChats] = useState([]);
     const [search, setSearch] = useState("");
@@ -48,29 +54,38 @@ export function ChatApp() {
                         </div>
                         <div className="w-full h-[85%] flex flex-col overflow-scroll">
                             {allChats.map((chat,index) => (
-                                <div className="w-full h-[100px] pl-6 py-3 flex cursor-pointer" key={index} onClick={() => setConversation(chat.pk, chat.first_username !== user  ?   chat.first_username : chat.second_username )}>
-                                    <div className="w-[80px] h-full flex items-center">
+                                <div className="w-full h-[100px] flex cursor-pointer" key={index} onClick={() => setConversation(chat.pk, chat.first_username !== user  ?   chat.first_username : chat.second_username )}>
+                                    <div className="w-[80px] h-full flex items-center ml-2">
                                         <div className="w-[64px] h-[64px] overflow-hidden bg-[#272A34] rounded-[50%]">
                                             <img src={pfp} alt=""/>
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <h2 className="text-white text-[20px] my-2 font-bold">
-                                            {chat.first_username === user ? (
-                                                chat.second_username
+                                        {chat.first_username === user ? (
+                                            <h2 className="text-white text-[20px] my-2 font-bold">
+                                                {chat.second_username}
+                                            </h2>
+                                        ) : (
+                                            <h2 className="text-white text-[20px] my-2 font-bold">
+                                                {chat.first_username}
+                                            </h2>
+                                        )}
+                                        {chat.last_message.length > 35 ? (
+                                            <h2 className="text-[#ADB3BF] text-[14px]">
+                                                {chat.last_message.substring(0, 35) + "..."}
+                                            </h2>
+                                        ) : (
+                                            chat.last_message.includes("Code:Bober") ? (
+                                                <h2 className="text-[#06B470] text-[14px]">
+                                                    {CheckCode(chat.last_message)}
+                                                </h2>
                                             ) : (
-                                                chat.first_username
+                                            <h2 className="text-[#ADB3BF] text-[14px]">
+                                                {chat.last_message}
+                                            </h2>
                                             )
-                                            }
-                                        </h2>
-                                        <h2 className="text-[#ADB3BF] text-[14px]">
-                                            {chat.last_message.length > 35 ? (
-                                                chat.last_message.substring(0, 35) + "..."
-                                            ) : (
-                                                chat.last_message
-                                            )
-                                            }
-                                        </h2>
+                                        )
+                                        }
                                     </div>
                                 </div>
                             ))}

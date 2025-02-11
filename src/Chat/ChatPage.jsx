@@ -1,12 +1,13 @@
 import {useEffect, useRef, useState} from "react";
 import {useAuth} from "../AuthContext.jsx";
 import api from "../axiosInstance.js";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import pfp from "/img_1.png";
 import support from "/support.png"
 import {SendMessagesAi} from "./ChatWithAi.jsx";
 import {LoadingSpinner} from "../LoadingSpinner.jsx";
 import {TypingTextAnimation} from "./TypingTextAnimation.jsx";
+import {WebSocketUserCompany} from "./WebSocketUserCompany.jsx";
 
 
 
@@ -42,26 +43,23 @@ export function ChatPage({chat_id,second_user}) {
 
 
 
-    const fetchMessages = async () => {
-        try{
-            const response = await api.get(
-                `api/chat/retrieve/message/${chat_id}/${second_user}/`,
-            )
-           setMessages(response.data);
-        } catch (error){
-            console.log(error);
-            if(error.response.status === 404){
-                navigate("/chat/");
-            }
-        }finally{
-            setIsChatLoaded(true);
-        }
-    }
-
     useEffect(() => {
-        if(!isChatLoaded){
-            fetchMessages();
-        }
+        const fetchMessages = async () => {
+            try{
+                const response = await api.get(
+                    `api/chat/retrieve/message/${chat_id}/${second_user}/`,
+                )
+                setMessages(response.data);
+            } catch (error){
+                console.log(error);
+                if(error.response.status === 404){
+                    navigate("/chat/");
+                }
+            }finally{
+                setIsChatLoaded(true);
+            }
+        };
+        fetchMessages();
     },[chat_id,second_user]);
 
 
@@ -104,7 +102,19 @@ export function ChatPage({chat_id,second_user}) {
                         <div className="w-full flex justify-end" key={index}>
                             <div
                                 className="max-w-[40%] mx-2 my-3 py-2 px-2  flex justify-end bg-[#1B70F1] rounded-l-[4px] rounded-tr-[4px]">
-                                <h2>{message.message}</h2>
+                                {message.job_link ? (
+                                    <div>
+                                        <h2>{message.message}</h2>
+                                        <div className="my-3 py-2 w-full flex justify-center items-center rounded-[2px] border-[1px] border-[#ffffff/20]">
+                                            <Link to={`/job/vacancy/${message.job_link}`} className="text-[14px]">Find out more</Link>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <h2>{message.message}</h2>
+                                    </div>
+                                )
+                                }
                                 {message.is_read ? (
                                         <div className="w-[50px] h-full flex justify-start items-end ml-2">
                                             <i className="bi bi-check-all" style={{color: "white", fontSize: "20px"}}> </i>
@@ -135,7 +145,9 @@ export function ChatPage({chat_id,second_user}) {
             {
                 second_user === "Support_AI" ? (
                     <SendMessagesAi setMessages={setMessages} messages={messages} isLoading={isLoading} setIsLoading={setIsLoading} />
-                ) : null
+                ) : (
+                    <WebSocketUserCompany />
+                )
             }
         </div>
     )
