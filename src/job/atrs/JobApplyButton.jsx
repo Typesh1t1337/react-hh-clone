@@ -23,9 +23,15 @@ export function JobApplyButton({jobId, applyStatus, setApplyStatus,success,setSu
             }
         } catch (error){
             console.log(error.message);
-            setError("something went wrong");
             if (error.response.data.error){
-                setError(error.response.data.error);
+                if(error.response.status === 403){
+                    setError(error.response.data.error);
+                }if(error.response.status=== 400){
+                    setError(error.response.data.error);
+                }
+                if(erorr.response.status=== 404){
+                    setError(error.response.data.error);
+                }
             }
         }
     }

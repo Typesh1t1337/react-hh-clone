@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import api from "../../axiosInstance.js";
 import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../AuthContext.jsx";
 
 function isNumericNumber(code) {
     const num = Number(code);
@@ -13,6 +14,7 @@ export function VerifySend({countDown, setCountDown}) {
     const[success, setSuccess] = useState("");
     const navigate = useNavigate();
     const [codeSent, setCodeSent] = useState(false);
+    const {isAuthenticated,user,isCompany,email,isVerified} = useAuth();
 
     const sendNewCode = async () => {
         try {
@@ -48,12 +50,11 @@ export function VerifySend({countDown, setCountDown}) {
 
             if(response.status === 200){
                 setSuccess("Account successfully verified, you will be redirected to your profile.");
-                setTimeout(() =>navigate('/account/my_profile/') , 1000);
+                setTimeout(() =>navigate(`/account/my_profile/${user}/`) , 1000);
             }
             if(!response.data.message){
                 setError("Code doesn't match with sent code");
             }
-
         }catch(err){
             console.log(err.message);
             setError("Something went wrong. Please try again later");

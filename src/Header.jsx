@@ -31,7 +31,7 @@ export function Header() {
                             <ul className="w-full flex justify-around items-center text-[#ADB3BF]">
                                 <li key="findjob"><Link to="/job/search/vacancy/">Find job</Link></li>
                                 <li key="create vacancy"><Link to="/job/vacancy/post/">Create vacancies</Link></li>
-                                <li key="applies"><Link>Applies list</Link></li>
+                                <li key="applies"><Link to={`/job/vacancies/${user}/`}>Applies list</Link></li>
                                 <li key="chats "><Link to="/chat/">Chats</Link></li>
                             </ul>
                         ) : (
