@@ -4,7 +4,6 @@ import {JobPage} from "./JobPage.jsx";
 import {AuthProvider} from "../AuthContext.jsx";
 import {AppliesApp} from "./AppliesApp.jsx";
 import {PostJobApp} from "./Company/PostJobApp.jsx";
-import {CompanyApplyList} from "../account/profile/CompanyApplyList.jsx";
 
 export function JobRouter() {
     return (
@@ -25,11 +24,6 @@ export function JobRouter() {
                 <PostJobApp />
             </AuthProvider>}
         />
-        <Route  path="vacancies/:company/" element={
-            <AuthProvider>
-                <CompanyApplyList />
-            </AuthProvider>
-        } />
     </Routes>
     )
 }

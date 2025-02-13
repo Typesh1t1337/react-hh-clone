@@ -7,6 +7,7 @@ import {ProfileApp} from "./profile/ProfileApp.jsx";
 import {VerifyAccount} from "./verification/VerifyAccount.jsx";
 import {AuthProvider} from "../AuthContext.jsx";
 import {CompanyVacanciesApp} from "./profile/CompanyVacanciesApp.jsx";
+import {CompanyApplyListApp} from "./profile/CompanyApplyListApp.jsx";
 
 
 export function AccountRouter() {
@@ -19,6 +20,7 @@ export function AccountRouter() {
                 <Route path="profile/:username" element={<ProfileApp />} />
                 <Route path="verify_email/" element={<AuthProvider><VerifyAccount /></AuthProvider>} />
                 <Route path="company/vacancies/" element={<AuthProvider><CompanyVacanciesApp /></AuthProvider>} />
+                <Route  path="vacancies/:company/:status/" element={<AuthProvider><CompanyApplyListApp /></AuthProvider>} />
             </Routes>
     )
 }
