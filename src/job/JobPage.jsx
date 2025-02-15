@@ -70,7 +70,15 @@ export function JobPage() {
                     <div className="mb-2">
                         <h3 className="text-[20px]">Category: {jobInfo.category}</h3>
                     </div>
-                    <div className="mt-12">
+                    <div className="mb-2">
+                        {jobInfo.applied === 0 ? (
+                            <h3 className="text-[20px] text-[#06B470] ">Nobody applied yet, be first!</h3>
+                        ) : (
+                            <h3 className="text-[20px]">Already Applied: {jobInfo.applied}</h3>
+                        )
+                        }
+                    </div>
+                <div className="mt-12">
                         {isAuthenticated ? (
                             isCompany ? (
                                 <a className="bg-[#888] px-6 py-4 rounded-[4px]">

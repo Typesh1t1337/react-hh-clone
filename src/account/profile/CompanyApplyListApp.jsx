@@ -7,6 +7,7 @@ import {ApproveButton} from "./ApproveButton.jsx";
 import {RejectButton} from "./RejectButton.jsx";
 import "../../Styles.css"
 import {ArchiveButton} from "./ArchiveButton.jsx";
+import {DeleteButton} from "./deleteButton.jsx";
 
 
 export function CompanyApplyListApp(){
@@ -143,8 +144,9 @@ export function CompanyApplyListApp(){
                                                     </a>
                                                 </div>
                                                <ApproveButton status={apply.status} user={apply.user_username} job_id={apply.job_id} setIsSuccess={setIsSuccess} setStatusText={setStatusText} setApplies={setApplies} applies={applies} />
-                                               <RejectButton status={apply.status} />
-                                                <ArchiveButton status={apply.status} />
+                                               <RejectButton status={apply.status} user={apply.user_username} job_id={apply.job_id} setIsSuccess={setIsSuccess} setStatusText={setStatusText} setApplies={setApplies} applies={applies} />
+                                                <ArchiveButton status={apply.status} user={apply.user_username} job_id={apply.job_id} setIsSuccess={setIsSuccess} setStatusText={setStatusText} setApplies={setApplies} applies={applies} />
+                                                <DeleteButton  status={apply.status} user={apply.user_username} job_id={apply.job_id} setIsSuccess={setIsSuccess} setStatusText={setStatusText} setApplies={setApplies} applies={applies} />
                                             </div>
                                         </div>
                                     </div>

@@ -9,8 +9,9 @@ import {CitiesSelector} from "./atrs/CitiesSelector.jsx";
 
 
 export function JobApp() {
+    const searchResult = sessionStorage.getItem("searchResult") || "";
     const [selectedCity, setSelectedCity] = useState("");
-    const [title, setTitle] = useState("");
+    const [title, setTitle] = useState(searchResult);
     const [description, setDescription] = useState("");
     const [minSalary, setMinSalary] = useState("");
     const [maxSalary, setMaxSalary] = useState("");
