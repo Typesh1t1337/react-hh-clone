@@ -55,7 +55,7 @@ export function Profile() {
                                 <Link to="/account/company/vacancies/" className="font-bold text-[#CFD3DA]">Company
                                     Vacancies</Link>
                             ) : (
-                                <Link className="font-bold text-[#CFD3DA]">My CV</Link>
+                                <Link className="font-bold text-[#CFD3DA]" to="/account/profile/cv/">My CV</Link>
                             )
                             }
                         </div>

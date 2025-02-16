@@ -9,6 +9,7 @@ import {AuthProvider} from "../AuthContext.jsx";
 import {CompanyVacanciesApp} from "./profile/CompanyVacanciesApp.jsx";
 import {CompanyApplyListApp} from "./profile/CompanyApplyListApp.jsx";
 import {EditProfileApp} from "./profile/EditProfileApp.jsx";
+import {UploadCvApp} from "./profile/UploadCvApp.jsx";
 
 
 export function AccountRouter() {
@@ -23,6 +24,7 @@ export function AccountRouter() {
                 <Route path="company/vacancies/" element={<AuthProvider><CompanyVacanciesApp /></AuthProvider>} />
                 <Route  path="vacancies/:company/:status/" element={<AuthProvider><CompanyApplyListApp /></AuthProvider>} />
                 <Route  path="profile/edit/" element={<AuthProvider><EditProfileApp /></AuthProvider>} />
+                <Route  path="profile/cv/" element={<AuthProvider><UploadCvApp/></AuthProvider>} />
             </Routes>
     )
 }

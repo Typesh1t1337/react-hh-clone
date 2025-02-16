@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
+    const [cv, setCv] = useState(null);
     const [pfp, setPfp] = useState(null);
 
     useEffect(() => {
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
                     setFirstName(response.data.user.first_name);
                     setLastName(response.data.user.last_name);
                     setPfp(response.data.user.pfp);
+                    setCv(response.data.user.cv);
                     if (response.data.user.status==="Company"){
                         setIsCompany(true);
                     }
@@ -41,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     },[]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, isCompany, setIsCompany,email,setEmail,isVerified, setIsVerified,loading,setLoading,firstName,setFirstName,lastName,setLastName,pfp }}>
+        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, isCompany, setIsCompany,email,setEmail,isVerified, setIsVerified,loading,setLoading,firstName,setFirstName,lastName,setLastName,pfp, cv }}>
             {children}
         </AuthContext.Provider>
     )
