@@ -1,6 +1,10 @@
+import {useAuth} from "../AuthContext.jsx";
 
 
 export function WebSocketUserCompany(props) {
+    const {isAuthenticated,user,isCompany,loading, first_name} = useAuth();
+
+
     return(
         <div className="relative w-full h-[10%] bg-[#272A34] flex justify-center items-center">
             <input placeholder="Type here" className="w-[96%] text-[#CFD3DA] px-2"/>

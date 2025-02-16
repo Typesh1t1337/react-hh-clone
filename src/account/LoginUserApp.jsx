@@ -25,7 +25,7 @@ export function LoginUserApp() {
                         password,
                     })
                     if (response.status === 200) {
-                        navigate("/");
+                        navigate(`/account/profile/${username}`);
                     }else{
                         setError("Invalid username or password");
                     }

@@ -42,8 +42,24 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
                                 className="w-[64px] h-[64px] rounded-[4px]"/>
                         </div>
                     </div>
-                    <div className="w-full h-[130px] flex justify-start items-center">
-                        <Link to={`/job/vacancy/${job.id}`} className="bg-[#1B70F1] px-7 py-4 rounded-[4px]">Find out more</Link>
+                    <div className="w-full h-[100px] flex flex-col">
+                        <div className="w-full h-[80px] flex justify-start items-center">
+                            <Link to={`/job/vacancy/${job.id}`} className="bg-[#1B70F1] px-7 py-4 rounded-[4px]">Find out more</Link>
+                            {job.status ? (
+                                <Link to={`/chat/conversation/${job.chat_id}/${job.company}`} className="px-5 py-4 bg-[#8a8a8a] rounded-[4px] ml-2">Chat</Link>
+                            ) : null
+                            }
+                        </div>
+                        <div className="h-[20px] w-full">
+                            {job.status === "Applied" ? (
+                                <h2 className="text-[#8a8a8a] text-[14px]">Your applied to this vacancy</h2>
+                            ) : job.status === "Approved" ? (
+                                <h2 className = "text-[#06B470] text-[14px]" > Your assign to job has been approved!</h2>
+                            ) : job.status === "Rejected" ? (
+                                <h2 className="text-[#F74E2C] text-[14px]"> Your assign to job has been rejected!</h2>
+                            ) : null
+                            }
+                        </div>
                     </div>
                 </div>
             ))}

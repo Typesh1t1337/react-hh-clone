@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 export function LabelIndex(){
     return (
-        <div className="w-full h-[720px] bg-[#131517] flex justify-center items-center px-20">
+        <div className="w-full h-[720px] bg-[#131517] flex justify-center items-center px-20 rounded-[8px]">
             <div className=" w-[100%] h-[380px] bg-[#1E1F25] flex">
                 <div className="w-[60%] pt-10 pl-10">
                     <h2 className="text-[54px] font-bold text-white leading-[65px] mb-8">Hurry Up! Apply Now Your Job Role</h2>

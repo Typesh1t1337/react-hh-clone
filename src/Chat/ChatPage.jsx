@@ -132,7 +132,7 @@ export function ChatPage({chat_id,second_user}) {
                         <div className="w-full flex justify-start" key={index}>
                             <div
                                 className="max-w-[40%]  mx-2 my-3 px-2 py-2 bg-[#54576D] rounded-r-[4px] rounded-tl-[4px] flex">
-                                <h2>{message.message}</h2>
+                                <h2 className="">{message.message}</h2>
                                 <div className="w-[40px] h-full flex justify-center items-end ml-2">
                                     <h5 className="text-[10px]">{formatTime(message.message_date)}</h5>
                                 </div>

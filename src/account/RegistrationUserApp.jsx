@@ -40,7 +40,7 @@ export function RegistrationUserApp() {
                 last_name: lastName,
             })
             if (response.status===200) {
-                navigate("/");
+                navigate(`/account/profile/${username}`);
             }
         }
         catch(error){

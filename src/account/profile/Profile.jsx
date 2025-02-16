@@ -1,4 +1,4 @@
-import pfp from "/img_1.png"
+import pfpUser from "/img_1.png"
 import {useAuth} from "../../AuthContext.jsx";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import  {Logout} from "../Logout.jsx";
@@ -9,7 +9,7 @@ import api from "../../axiosInstance.js";
 import {CompanyVacanciesProfile} from "./CompanyVacanciesProfile.jsx";
 
 export function Profile() {
-    const {isAuthenticated, user, isCompany, email, isVerified} = useAuth();
+    const {isAuthenticated, user, isCompany, email, isVerified,pfp} = useAuth();
     const {username} = useParams();
     const [userInfo, setUserInfo] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -69,14 +69,22 @@ export function Profile() {
                         <div className="h-full w-[96%] flex justify-between">
                             <div className="w-[70%] h-full flex">
                                 <div className="h-full flex justify-center items-center w-[150px] mr-5">
-                                    <div
-                                        className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
-                                        <img src={pfp} className="h-[120px] h-[120px]"/>
-                                    </div>
+                                    { pfp ? (
+                                        <div
+                                            className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
+                                            <img src={pfp} className="h-[120px] h-[120px]"/>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
+                                            <img src={pfpUser} className="h-[120px] h-[120px]"/>
+                                        </div>
+                                    )
+                                    }
                                 </div>
                                 <div className="h-full flex justify-start items-center w-[250px]">
                                     <div className="h-[70px] flex flex-col justify-between">
-                                        <h2 className="text-[#ECEEF0] font-bold text-[20px]">{user}</h2>
+                                    <h2 className="text-[#ECEEF0] font-bold text-[20px]">{user}</h2>
                                         <h3 className="text-[12px] text-[#CFD3DA]">@{user}</h3>
                                     </div>
                                 </div>
@@ -89,7 +97,7 @@ export function Profile() {
                             </div>
                             <div className="w-[30%] h-full flex justify-end items-center">
                                 <div className="h-[70px] flex justify-center items-center">
-                                    <Link
+                                    <Link to="/account/profile/edit/"
                                         className="px-16 py-4 border-[#1B70F1] rounded-[4px] border-[1px] text-[14px] text-[#1B70F1]">
                                         Edit
                                     </Link>
@@ -153,14 +161,22 @@ export function Profile() {
                         <div className="h-full w-[96%] flex justify-between">
                             <div className="w-[80%] h-full flex">
                                 <div className="h-full flex justify-center items-center w-[150px] mr-5">
-                                    <div
-                                        className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
-                                        <img src={pfp} className="h-[120px] h-[120px]"/>
-                                    </div>
+                                    { userInfo.photo ? (
+                                        <div
+                                            className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
+                                            <img src={`http://127.0.0.1:8001${userInfo.photo}/`} className="h-[120px] h-[120px]"/>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
+                                            <img src={pfp} className="h-[120px] h-[120px]"/>
+                                        </div>
+                                    )
+                                    }
                                 </div>
                                 <div className="h-full flex justify-start items-center w-[150px]">
-                                    {userInfo?.status === "User" ?  (
-                                    <div className="h-[70px] flex flex-col justify-between">
+                                    {userInfo?.status === "User" ? (
+                                        <div className="h-[70px] flex flex-col justify-between">
                                         <h2 className="text-[#ADB3BF] font-bold text-[16px]">User</h2>
                                         <h3 className="text-[20px] text-[#ECEEF0]">{userInfo.username}</h3>
                                     </div>

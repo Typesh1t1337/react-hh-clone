@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import logo from "/portfolio.png";
 import api from "./axiosInstance.js";
-import pfp from "/img_1.png"
+import pfpUser from "/img_1.png"
 import {useAuth} from "./AuthContext.jsx";
 import {LoadingSpinner} from "./LoadingSpinner.jsx";
 
 
 export function Header() {
-    const {isAuthenticated,user,isCompany,loading} = useAuth();
+    const {isAuthenticated,user,isCompany,loading,pfp} = useAuth();
 
     if (loading) {
         return (<LoadingSpinner />);
@@ -54,10 +54,18 @@ export function Header() {
                         isAuthenticated ? (
                             <div className="h-[56px] w-full flex">
                                 <div className="h-full w-[40%] flex justify-center items-center ">
-                                    <div
-                                        className="bg-[#272A34] w-[56px] h-[56px] flex justify-center items-center overflow-hidden rounded-[50%]">
-                                        <img src={pfp} className="w-[56px] h-[56px]"/>
-                                    </div>
+                                    {pfp ? (
+                                        <div
+                                            className="bg-[#272A34] w-[56px] h-[56px] flex justify-center items-center overflow-hidden rounded-[50%] border-[2px] border-[#8a8a8a]">
+                                            <img src={pfp} className="w-[56px] h-[56px]"/>
+                                        </div>
+                                    ) : (
+                                        <div
+                                            className="bg-[#272A34] w-[56px] h-[56px] flex justify-center items-center overflow-hidden rounded-[50%]">
+                                            <img src={pfpUser} className="w-[56px] h-[56px]"/>
+                                        </div>
+                                    )
+                                    }
                                 </div>
                                 <div className="h-full w-[60%] flex justify-center items-center">
                                     <div className="h-[50px] w-full flex flex-col justify-between items-end">
