@@ -6,10 +6,15 @@ import {Upload} from "lucide-react";
 import {UploadButton} from "../atr/UploadButton.jsx";
 import {useEffect, useState} from "react";
 import {LoadingSpinner} from "../../LoadingSpinner.jsx";
+import {Professions} from "../../job/atrs/ProfSelector.jsx";
+import {SelectSkills} from "../atr/SelectSkills.jsx";
 
 export function UploadCvApp() {
     const {isAuthenticated,user,isCompany,loading,pfp,cv} = useAuth();
     const [isLoading, setIsLoading] = useState(true);
+    const design = 2;
+    const [category, setCategory] = useState(null);
+    const [chosenSkill, setChosenSkill] = useState([]);
 
     useEffect(() => {
         if (cv) {
@@ -20,6 +25,10 @@ export function UploadCvApp() {
 
     if (isLoading) {
         return <LoadingSpinner />;
+    }
+
+    const handleDataFromSelector = (data) =>{
+        setCategory(data);
     }
 
 
@@ -44,24 +53,87 @@ export function UploadCvApp() {
                             </div>
                         </div>
                     </div>
-                    {cv ? (
-                        <div
-                            className="h-[1500px] w-[70%]  bg-[#1E1F25] rounded-[8px] p-10 flex flex-col justify-center items-center overflow-scroll">
-                            <h2 className="font-bold text-[30px] mb-6">Upload another cv</h2>
-                            <div>
-                                <UploadButton/>
+                    <div
+                        className="h-[1500px] w-[70%]  bg-[#1E1F25] rounded-[8px] py-10 flex flex-col overflow-scroll px-30">
+                        <div className="w-full my-6 flex justify-center items-center">
+                            <h2 className="text-[40px] font-bold">CV creation form</h2>
+                        </div>
+                        <div className="w-full my-6 flex flex-col items-center">
+                            <div className="w-[60%] my-2">
+                                <label htmlFor="title" className="mb-2 text-[#CFD3DA]">
+                                    Choose occupation <span className="text-[#FC4747]">*</span>
+                                </label>
                             </div>
-                            <a href={`${cv}`} target="_blank">Link</a>
-                            <iframe src={`${cv}#toolbar=0`} width="100%" height="100%"/>
+                            <Professions onSendData={handleDataFromSelector} design={design}/>
                         </div>
-                    ) : (
-                        <div
-                            className="w-[70%] h-[calc(100vh-180px)] bg-[#1E1F25] flex flex-col justify-center items-center rounded-[6px]">
-                            <h2 className="font-bold text-[30px] mb-6">You not upload cv yet, do it right now!</h2>
-                            <UploadButton/>
+                        <SelectSkills selectedCategory={category} setChosenSkill={setChosenSkill}
+                                      chosenSkill={chosenSkill}/>
+                        <div className="w-full my-6 flex flex-col items-center">
+                            <div className="w-[60%] my-4">
+                                <label htmlFor="title" className="mb-2 text-[#CFD3DA]">
+                                    Experience
+                                </label>
+                                <h2 className="mt-2 text-[12px] text-[#8a8a8a]">
+                                    leave this blank empty if you have no work experience
+                                </h2>
+                                <div className="my-3">
+                                    <label className="text-[#CFD3DA] text-[14px]">
+                                        Corporation
+                                    </label>
+                                    <input placeholder="Type here"
+                                           className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-full text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px] mt-2"
+                                           type="text"/>
+                                </div>
+                                <div className="my-3">
+                                    <label className="text-[#CFD3DA] text-[14px]">
+                                        Started at
+                                    </label>
+                                    <input placeholder="Started"
+                                           className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-full text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px] mt-2"
+                                           type="date"/>
+                                </div>
+                                <div className="my-3">
+                                    <label className="text-[#CFD3DA] text-[14px]">
+                                        Finished at
+                                    </label>
+                                    <input placeholder="Finished"
+                                           className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-full text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px] mt-2"
+                                           type="date"/>
+                                </div>
+                            </div>
                         </div>
-                    )
-                    }
+                        <div className="w-full my-6 flex flex-col items-center">
+                            <div className="w-[60%] my-4">
+                                <label htmlFor="title" className="mb-2 text-[#CFD3DA]">
+                                    Languages <span className="text-[#FC4747]">*</span>
+                                </label>
+                                <div className="my-3">
+                                    <label className="text-[#CFD3DA] text-[14px]">
+                                        Language
+                                    </label>
+                                    <input placeholder="Type here"
+                                           className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-full text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px] mt-2"
+                                           type="text"/>
+                                </div>
+                                <div className="my-3">
+                                    <label className="text-[#CFD3DA] text-[14px]">
+                                        Level
+                                    </label>
+                                    <select
+                                        className="px-2 border-grey-300 border-[1px] rounded-[2px]  w-full text-[12px] text-[#ADB3BF] rounded-[2px] h-[40px] mt-2">
+                                        <option value="" disabled selected>Choose Level</option>
+                                        <option value="A0">A0</option>
+                                        <option value="A1">A1</option>
+                                        <option value="A2">A2</option>
+                                        <option value="B1">B1</option>
+                                        <option value="B2">B2</option>
+                                        <option value="C1">C1</option>
+                                        <option value="C2">C2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
