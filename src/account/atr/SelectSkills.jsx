@@ -19,7 +19,9 @@ export function SelectSkills({selectedCategory,chosenSkill, setChosenSkill}) {
                 console.log(err)
             }
         }
-        fetchSkills();
+        if(selectedCategory){
+            fetchSkills();
+        }
     },[selectedCategory]);
 
     const addToChosenSkill = (skill) => {
