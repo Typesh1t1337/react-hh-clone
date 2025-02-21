@@ -24,7 +24,7 @@ export function AccountRouter() {
                 <Route path="company/vacancies/" element={<AuthProvider><CompanyVacanciesApp /></AuthProvider>} />
                 <Route  path="vacancies/:company/:status/" element={<AuthProvider><CompanyApplyListApp /></AuthProvider>} />
                 <Route  path="profile/edit/" element={<AuthProvider><EditProfileApp /></AuthProvider>} />
-                <Route  path="profile/cv/" element={<AuthProvider><UploadCvApp/></AuthProvider>} />
+                <Route  path="profile/cv/:username" element={<AuthProvider><UploadCvApp/></AuthProvider>} />
             </Routes>
     )
 }

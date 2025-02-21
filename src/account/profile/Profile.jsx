@@ -55,7 +55,7 @@ export function Profile() {
                                 <Link to="/account/company/vacancies/" className="font-bold text-[#CFD3DA]">Company
                                     Vacancies</Link>
                             ) : (
-                                <Link className="font-bold text-[#CFD3DA]" to="/account/profile/cv/">My CV</Link>
+                                <Link className="font-bold text-[#CFD3DA]" to={`/account/profile/cv/${username}`}>My CV</Link>
                             )
                             }
                         </div>
@@ -169,7 +169,7 @@ export function Profile() {
                                     ) : (
                                         <div
                                             className="h-[120px] w-[120px] flex justify-center items-center overflow-hidden bg-[#272A34] rounded-[50%]">
-                                            <img src={pfp} className="h-[120px] h-[120px]"/>
+                                            <img src={pfpUser} className="h-[120px] h-[120px]"/>
                                         </div>
                                     )
                                     }
@@ -211,7 +211,7 @@ export function Profile() {
                                     {isCompany && (
                                         userInfo.status === "User" && (
                                             <Link
-                                                className="px-16 py-4 border-[#1B70F1] rounded-[4px] border-[1px] text-[14px] text-[#1B70F1]">
+                                                className="px-16 py-4 border-[#1B70F1] rounded-[4px] border-[1px] text-[14px] text-[#1B70F1]" to={`/account/profile/cv/${username}`}>
                                                 See cv
                                             </Link>
                                         )
