@@ -23,9 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
-node_modules
+
 .vite
 eslint.config.js
 vite.config.js
 
-.ENV
+
+package.json
+package-lock.json

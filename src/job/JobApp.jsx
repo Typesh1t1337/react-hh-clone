@@ -6,41 +6,63 @@ import {Professions} from "./atrs/ProfSelector.jsx";
 import api from "../axiosInstance.js";
 import {AuthProvider} from "../AuthContext.jsx";
 import {CitiesSelector} from "./atrs/CitiesSelector.jsx";
+import {JobPagination} from "./JobPagination.jsx";
+import {useParams, useSearchParams} from "react-router-dom";
 
 
 export function JobApp() {
     const searchResult = sessionStorage.getItem("searchResult") || "";
-    const [selectedCity, setSelectedCity] = useState("");
-    const [title, setTitle] = useState(searchResult);
-    const [description, setDescription] = useState("");
-    const [minSalary, setMinSalary] = useState("");
-    const [maxSalary, setMaxSalary] = useState("");
-    const [category, setCategory] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [selectedCity, setSelectedCity] = useState(searchParams.get("city") || "");
+    const [title, setTitle] = useState(searchParams.get("title") || searchResult);
+    const [minSalary, setMinSalary] = useState(searchParams.get("min_salary") || "");
+    const [maxSalary, setMaxSalary] = useState(searchParams.get("max_salary") || "");
+    const [category, setCategory] = useState(searchParams.get("category") || "");
+    const page = parseInt(searchParams.get("page")) || 1;
     const design = 1;
 
+
+    const updateSearchParams = (newFilters) => {
+        const updatedParams = {
+            ...Object.fromEntries(searchParams.entries()),
+            ...newFilters
+        };
+
+        // Убираем пустые параметры из URL
+        Object.keys(updatedParams).forEach((key) => {
+            if (!updatedParams[key]) {
+                delete updatedParams[key];
+            }
+        });
+
+        setSearchParams(updatedParams);
+    };
 
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
+        updateSearchParams({"title": event.target.value});
     }
 
-    const handleDescriptionChange = (event) => {
-        setDescription(event.target.value);
-    }
 
     const handleMinSalaryChange = (event) => {
         setMinSalary(event.target.value);
+        updateSearchParams({"min_salary": event.target.value});
     }
     const handleMaxSalaryChange = (event) => {
         setMaxSalary(event.target.value);
+        updateSearchParams({"max_salary": event.target.value});
     }
 
     const handleDataFromSelector = (data) =>{
         setCategory(data);
+        updateSearchParams({"category": data.category});
     }
 
     const handleDataFromSelectorCity = (data) =>{
         setSelectedCity(data);
+        updateSearchParams({"city": data.category});
     }
 
 
@@ -84,7 +106,7 @@ export function JobApp() {
                                     </button>
                                 </div>
                             </div>
-                            <JobCard title={title} description={description} location={selectedCity} salary_max={maxSalary} salary_min={minSalary} category={category}  />
+                            <JobCard title={title} location={selectedCity} salary_max={maxSalary} salary_min={minSalary} category={category} page={page} />
                         </div>
                     </div>
                 </div>

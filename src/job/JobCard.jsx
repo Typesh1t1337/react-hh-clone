@@ -1,24 +1,29 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import api from "../axiosInstance.js";
-import {Link} from "react-router-dom";
+import {Link, useParams, useSearchParams} from "react-router-dom";
+import {JobPagination} from "./JobPagination.jsx";
 
 
-export function JobCard({title,description,location,salary_min,salary_max,category}) {
+export function JobCard({title,location,salary_min,salary_max,category,page}) {
     const [jobList, setJobList] = useState([]);
+    const [paginationSize, setPaginationSize] = useState(null);
+
 
     useEffect(() => {
         const getJobs = async () => {
             try{
-                const response = await api.get(`api/v1/job/list/?search=${title}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}`);
+                const response = await api.get(`api/v1/job/list/?search=${title}&salary_min=${salary_min}&salary_max=${salary_max}&location=${location}&category=${category}&page=${page}`);
                 setJobList(response.data.results);
+                setPaginationSize(response.data.count);
+                console.log(response.data.count);
             }
             catch(err){
                 console.log(err);
             }
         }
         getJobs();
-    },[title,description,location,salary_max,salary_min,category]);
+    },[title,location,salary_max,salary_min,category]);
 
     return (
         <div className="w-full h-full flex flex-col ">
@@ -63,6 +68,7 @@ export function JobCard({title,description,location,salary_min,salary_max,catego
                     </div>
                 </div>
             ))}
+            <JobPagination paginationSize={paginationSize} page={page} />
         </div>
     )
 }

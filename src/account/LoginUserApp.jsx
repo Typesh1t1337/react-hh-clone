@@ -18,6 +18,7 @@ export function LoginUserApp() {
             }
             if(!password){
                 setError("Password is required");
+
             }else{
                 try {
                     const response = await api.post("account/login/", {
